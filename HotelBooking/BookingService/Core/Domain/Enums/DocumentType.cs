@@ -2,7 +2,7 @@
 {
     public enum DocumentType
     {
-        Passport = 0,
-        DriverLicense = 1,
+        Passport = 1,
+        DriverLicense = 2,
     }
 }

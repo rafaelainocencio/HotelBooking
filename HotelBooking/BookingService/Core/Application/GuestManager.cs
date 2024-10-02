@@ -8,7 +8,7 @@ using Domain.Ports;
 namespace Application
 {
     public class GuestManager : IGuestManager
-    {
+    { 
         private readonly IGuestRepository _guestRepository;
         public GuestManager(IGuestRepository guestRepository) 
         {

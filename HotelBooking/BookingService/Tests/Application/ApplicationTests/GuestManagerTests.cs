@@ -4,6 +4,7 @@ using Application.Guest.Requests;
 using Domain.Entities;
 using Domain.Ports;
 using Moq;
+using System.Security.Cryptography.X509Certificates;
 
 namespace ApplicationTests
 {
@@ -172,6 +173,50 @@ namespace ApplicationTests
             Assert.False(res.Success);
             Assert.That(res.ErrorCode, Is.EqualTo(ErrorCodes.INVALID_EMAIL));
             Assert.That(res.Message, Is.EqualTo("The giving email is not valid."));
+        }
+
+        [Test]
+        public async Task Should_Return_GuestNotFound_When_GuestDoesntExist()
+        {
+            var fakeRepo = new Mock<IGuestRepository>();
+
+            fakeRepo.Setup(x => x.Get(333)).Returns(Task.FromResult<Guest?>(null));
+
+            guestManager = new GuestManager(fakeRepo.Object);
+
+            var res = await guestManager.GetGuest(333);
+
+            Assert.IsNotNull(res);
+            Assert.False(res.Success);
+            Assert.That(res.ErrorCode, Is.EqualTo(ErrorCodes.GUEST_NOT_FOUND));
+            Assert.That(res.Message, Is.EqualTo("No Guest record was found with the given id."));
+        }
+
+        [Test]
+        public async Task Should_Return_GuestSuccess()
+        {
+            var fakeRepo = new Mock<IGuestRepository>();
+
+            var fakeGuest = new Guest
+            {
+                Name = "Fulana",
+                Surname = "da Silva",
+                Email = "abc@gmail.com",
+                DocumentId = new Domain.ValueObjects.PersonId
+                    {
+                        DocumentType = Domain.Enums.DocumentType.DriverLicense,
+                        IdNumber = "abca",
+                    }
+            };
+
+            fakeRepo.Setup(x => x.Get(333)).Returns(Task.FromResult((Guest?)fakeGuest));
+
+            guestManager = new GuestManager(fakeRepo.Object);
+
+            var res = await guestManager.GetGuest(333);
+
+            Assert.IsNotNull(res);
+            Assert.True(res.Success);
         }
     }
 }

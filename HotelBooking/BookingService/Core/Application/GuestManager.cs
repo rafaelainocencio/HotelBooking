@@ -10,7 +10,7 @@ namespace Application
     public class GuestManager : IGuestManager
     {
         private readonly IGuestRepository _guestRepository;
-        public GuestManager(IGuestRepository guestRepository) 
+        public GuestManager(IGuestRepository guestRepository)
         {
             _guestRepository = guestRepository;
         }
@@ -65,6 +65,27 @@ namespace Application
                     Message = "There was an error when saving to DB."
                 };
             }
+        }
+
+        public async Task<GuestResponse> GetGuest(int guestId)
+        {
+            var guest = await _guestRepository.Get(guestId);
+
+            if (guest == null)
+            {
+                return new GuestResponse
+                {
+                    Success = false,
+                    ErrorCode = ErrorCodes.GUEST_NOT_FOUND,
+                    Message = "No Guest record was found with the given id."
+                };
+            };
+
+            return new GuestResponse
+            {
+                Data = GuestDTO.MapToDto(guest),
+                Success = true,
+            };
         }
     }
 }

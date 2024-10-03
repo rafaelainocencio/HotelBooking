@@ -17,14 +17,17 @@ namespace Domain.Entities
         private void ValidateState()
         {
             if(DocumentId == null ||
+               string.IsNullOrEmpty(DocumentId.IdNumber) ||
                DocumentId.IdNumber.Length <= 3 ||
-               DocumentId.DocumentType == 0
+               DocumentId?.DocumentType == 0
                )
             {
                 throw new InvalidPersonDocumentIdException();
             }
 
-            if (Name == null || Surname == null || Email == null)
+            if (string.IsNullOrWhiteSpace(Name) ||
+                string.IsNullOrWhiteSpace(Surname) ||
+                string.IsNullOrWhiteSpace(Email))
             {
                 throw new MissingRequiredInformation();
             }

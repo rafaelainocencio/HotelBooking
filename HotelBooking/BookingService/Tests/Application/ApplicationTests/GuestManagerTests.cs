@@ -1,8 +1,10 @@
 using Application;
+using Application.Guest;
 using Application.Guest.DTOs;
 using Application.Guest.Requests;
-using Domain.Entities;
-using Domain.Ports;
+using Domain.Guest.Entities;
+using Domain.Guest.Enums;
+using Domain.Guest.Ports;
 using Moq;
 using System.Security.Cryptography.X509Certificates;
 
@@ -202,9 +204,9 @@ namespace ApplicationTests
                 Name = "Fulana",
                 Surname = "da Silva",
                 Email = "abc@gmail.com",
-                DocumentId = new Domain.ValueObjects.PersonId
+                DocumentId = new Domain.Guest.ValueObjects.PersonId
                     {
-                        DocumentType = Domain.Enums.DocumentType.DriverLicense,
+                        DocumentType = DocumentType.DriverLicense,
                         IdNumber = "abca",
                     }
             };

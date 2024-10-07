@@ -1,8 +1,8 @@
-﻿using Domain.Exceptions;
-using Domain.Ports;
-using Domain.ValueObjects;
+﻿using Domain.Guest.Exceptions;
+using Domain.Guest.Ports;
+using Domain.Guest.ValueObjects;
 
-namespace Domain.Entities
+namespace Domain.Guest.Entities
 {
     public class Guest
     {
@@ -12,11 +12,11 @@ namespace Domain.Entities
         public string Email { get; set; }
         //não queremos que isso vire uma tabela
         //mas que os atributos do obj se tornem campos da tb do Guest
-        public PersonId DocumentId { get; set; } 
+        public PersonId DocumentId { get; set; }
 
         private void ValidateState()
         {
-            if(DocumentId == null ||
+            if (DocumentId == null ||
                string.IsNullOrEmpty(DocumentId.IdNumber) ||
                DocumentId.IdNumber.Length <= 3 ||
                DocumentId?.DocumentType == 0
@@ -40,11 +40,11 @@ namespace Domain.Entities
 
         public async Task Save(IGuestRepository guestRepository)
         {
-            this.ValidateState();
+            ValidateState();
 
-            if (this.Id == 0 )
+            if (Id == 0)
             {
-                this.Id = await guestRepository.Create(this);
+                Id = await guestRepository.Create(this);
             }
             else
             {

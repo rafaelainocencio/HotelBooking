@@ -1,16 +1,30 @@
-using Application;
+using Application.Guest;
 using Application.Guest.Ports;
+using Application.Room;
+using Application.Room.Ports;
 using Data;
 using Data.Guest;
-using Domain.Ports;
+using Data.Room;
+using Domain.Guest.Ports;
+using Domain.Room.Ports;
+using MediatR;
 using Microsoft.EntityFrameworkCore;
+using System.Reflection;
 
 var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllers();
 
+builder.Services.AddMediatR(cfg => cfg.RegisterServicesFromAssemblies(Assembly.GetExecutingAssembly()));
 #region IoC
+// guest
 builder.Services.AddScoped<IGuestManager, GuestManager>();
 builder.Services.AddScoped<IGuestRepository, GuestRepository>();
+
+// room
+builder.Services.AddScoped<IRoomManager, RoomManager>();
+builder.Services.AddScoped<IRoomRepository, RoomRepository>();
+
+
 #endregion
 
 #region DB writing up

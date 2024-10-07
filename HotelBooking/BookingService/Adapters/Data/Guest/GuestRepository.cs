@@ -1,8 +1,8 @@
-﻿using Domain.Ports;
+﻿using  Domain.Guest.Ports;
 using Microsoft.EntityFrameworkCore;
 
 namespace Data.Guest
-{ 
+{
     public class GuestRepository : IGuestRepository
     {
         private readonly HotelDbContext _hotelDbContext;
@@ -10,14 +10,14 @@ namespace Data.Guest
         {
             _hotelDbContext = hotelDbContext;
         }
-        public async Task<int> Create(Domain.Entities.Guest guest)
+        public async Task<int> Create(Domain.Guest.Entities.Guest guest)
         {
             _hotelDbContext.Guests.Add(guest);
             await _hotelDbContext.SaveChangesAsync();
             return guest.Id;
         }
 
-        public Task<Domain.Entities.Guest> Get(int id)
+        public Task<Domain.Guest.Entities.Guest> Get(int id)
         {
             return _hotelDbContext.Guests.FirstOrDefaultAsync(g => g.Id == id);
         }

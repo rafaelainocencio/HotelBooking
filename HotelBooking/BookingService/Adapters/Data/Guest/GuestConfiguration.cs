@@ -1,11 +1,10 @@
-﻿using Entities = Domain.Entities;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 
 namespace Data.Guest
 {
-    public class GuestConfiguration : IEntityTypeConfiguration<Entities.Guest>
+    public class GuestConfiguration : IEntityTypeConfiguration<Domain.Guest.Entities.Guest>
     {
-        public void Configure(Microsoft.EntityFrameworkCore.Metadata.Builders.EntityTypeBuilder<Entities.Guest> builder)
+        public void Configure(Microsoft.EntityFrameworkCore.Metadata.Builders.EntityTypeBuilder<Domain.Guest.Entities.Guest> builder)
         {
             builder.HasKey(x => x.Id);
             builder.OwnsOne(x => x.DocumentId)

@@ -9,7 +9,7 @@ namespace Data
         
         public virtual DbSet<Entities.Guest.Entities.Guest> Guests { get; set; }
         public virtual DbSet<Entities.Room.Entities.Room> Rooms { get; set; }
-        public virtual DbSet<Entities.Guest.Entities.Booking> Bookings { get; set; }
+        public virtual DbSet<Entities.Booking.Entities.Booking> Bookings { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

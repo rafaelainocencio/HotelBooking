@@ -44,6 +44,14 @@ namespace API.Controllers
             {
                 return BadRequest(res);
             }
+            if (res.ErrorCode == ErrorCodes.INVALID_ROOM)
+            {
+                return BadRequest(res);
+            }
+            if (res.ErrorCode == ErrorCodes.INVALID_GUEST)
+            {
+                return BadRequest(res);
+            }
             if (res.ErrorCode == ErrorCodes.MISSING_REQUIRED_INFORMATION)
             {
                 return BadRequest(res);

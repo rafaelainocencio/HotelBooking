@@ -28,6 +28,38 @@ namespace Domain.Room.Entities
             }
         }
 
+        public bool IsValid()
+        {
+            try
+            {
+                ValidateState();
+                return true;
+            }
+            catch (Exception)
+            {
+                return false;
+            }
+        }
+
+        public bool CanBeBooked()
+        {
+            try
+            {
+                this.ValidateState();
+            }
+            catch (Exception)
+            {
+                return false;
+            }
+
+            if (!this.IsAvailable)
+            {
+                return false;
+            }
+
+            return true;
+        }
+
         public bool HasGuest
         {
             get
@@ -55,26 +87,6 @@ namespace Domain.Room.Entities
             {
                 throw new InvalidRoomPriceException();
             }
-        }
-
-        public bool CanBeBooked()
-        {
-            try
-            {
-                this.ValidateState();
-            }
-            catch (Exception)
-            {
-
-                return false;
-            }
-
-            if (!this.IsAvailable)
-            {
-                return false;
-            }
-
-            return true;
         }
 
         public async Task Save(IRoomRepository roomRepository)

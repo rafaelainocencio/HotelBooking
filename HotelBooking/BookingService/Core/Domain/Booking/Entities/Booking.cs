@@ -1,6 +1,8 @@
 ﻿using Domain.Booking.Exceptions;
 using Domain.Booking.Ports;
 using Domain.Guest.Enums;
+using Domain.Guest.Exceptions;
+using Domain.Room.Exceptions;
 using Action = Domain.Guest.Enums.Action;
 using DomainEntities = Domain;
 
@@ -52,25 +54,30 @@ namespace Domain.Booking.Entities
 
         private void ValidadeState()
         {
-            if (PlacedAt == null)
+            if (PlacedAt == default)
             {
                 throw new InvalidPlacedAtException();
             }
-            if (Start == null)
+            if (Start == default)
             {
                 throw new InvalidStartException();
             }
-            if (End == null)
+            if (End == default)
             {
                 throw new InvalidEndException();
             }
-            if (Room == null)
+            if (!Room.IsValid())
             {
                 throw new InvalidRoomException();
             }
-            if (Guest == null)
+            if (!Guest.IsValid())
             {
                 throw new InvalidGuestException();
+            }
+
+            if (!this.Room.CanBeBooked())
+            {
+                throw new RoomNotAvailableException();
             }
         }
     }

@@ -9,7 +9,6 @@
   <ItemGroup>
     <Folder Include="Guest\DomainEvents\" />
     <Folder Include="Guest\DomainExceptions\" />
-    <Folder Include="Room\Exceptions\" />
   </ItemGroup>
 
 </Project>

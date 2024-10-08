@@ -1,4 +1,4 @@
-﻿namespace Domain.Booking.Exceptions
+﻿namespace Domain.Room.Exceptions
 {
     public class InvalidRoomException : Exception
     {

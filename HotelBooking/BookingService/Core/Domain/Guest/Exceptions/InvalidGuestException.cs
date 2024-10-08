@@ -1,4 +1,4 @@
-﻿namespace Domain.Booking.Exceptions
+﻿namespace Domain.Guest.Exceptions
 {
     public class InvalidGuestException : Exception
     {

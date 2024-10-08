@@ -4,6 +4,10 @@ using Application.Booking.Requests;
 using Application.Booking.Responses;
 using Domain.Booking.Exceptions;
 using Domain.Booking.Ports;
+using Domain.Guest.Exceptions;
+using Domain.Guest.Ports;
+using Domain.Room.Exceptions;
+using Domain.Room.Ports;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,16 +19,25 @@ namespace Application.Booking
     public class BookingManager : IBookingManager
     {
         private readonly IBookingRepositoy _bookingRepository;
-        public BookingManager(IBookingRepositoy bookingRepository)
+        private readonly IGuestRepository _guestRepository;
+        private readonly IRoomRepository _roomRepository;
+        public BookingManager(IBookingRepositoy bookingRepository,
+                              IGuestRepository guestRepository,
+                              IRoomRepository roomRepository)
         {
             _bookingRepository = bookingRepository;
+            _guestRepository = guestRepository;
+            _roomRepository = roomRepository;
         }
         public async Task<BookingResponse> CreateBooking(CreateBookingRequest request)
         {
             try
             {
                 var booking = BookingDto.MapToEntity(request.Data);
-                booking.SaveAsync(_bookingRepository);
+                booking.Guest = await _guestRepository.Get(request.Data.GuestId);
+                booking.Room = await _roomRepository.Get(request.Data.RoomId);
+
+                await booking.SaveAsync(_bookingRepository);
 
                 request.Data.Id = booking.Id;
 

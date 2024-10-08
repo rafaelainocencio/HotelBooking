@@ -1,10 +1,14 @@
+using Application.Booking;
+using Application.Booking.Ports;
 using Application.Guest;
 using Application.Guest.Ports;
 using Application.Room;
 using Application.Room.Ports;
 using Data;
+using Data.Booking;
 using Data.Guest;
 using Data.Room;
+using Domain.Booking.Ports;
 using Domain.Guest.Ports;
 using Domain.Room.Ports;
 using MediatR;
@@ -23,6 +27,10 @@ builder.Services.AddScoped<IGuestRepository, GuestRepository>();
 // room
 builder.Services.AddScoped<IRoomManager, RoomManager>();
 builder.Services.AddScoped<IRoomRepository, RoomRepository>();
+
+// booking
+builder.Services.AddScoped<IBookingManager, BookingManager>();
+builder.Services.AddScoped<IBookingRepositoy, BookingRepository>();
 
 
 #endregion

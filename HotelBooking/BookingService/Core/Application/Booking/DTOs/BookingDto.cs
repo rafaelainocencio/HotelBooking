@@ -22,6 +22,7 @@ namespace Application.Booking.DTOs
             return new Domain.Booking.Entities.Booking
             {
                 Id = dto.Id,
+                PlacedAt = dto.PlacedAt,
                 Start = dto.Start,
                 Room = new Domain.Room.Entities.Room { Id = dto.RoomId},
                 Guest = new Domain.Guest.Entities.Guest { Id = dto.RoomId },

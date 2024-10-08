@@ -13,7 +13,7 @@ namespace Domain.Room.Entities
         public int Level { get; set; }
         public bool InMaintenance { get; set; }
         public Price Price { get; set; }
-        public ICollection<Booking> Bookings { get; set; }
+        public ICollection<Domain.Booking.Entities.Booking> Bookings { get; set; }
 
         public bool IsAvailable
         {

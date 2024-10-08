@@ -13,8 +13,8 @@ namespace API.Controllers
         private readonly ILogger<GuestController> _logger;
         private readonly IGuestManager _guestManager;
 
-        public GuestController(
-            ILogger<GuestController> logger, IGuestManager guestManager)
+        public GuestController(ILogger<GuestController> logger,
+                               IGuestManager guestManager)
         {
             _logger = logger;
             _guestManager = guestManager;

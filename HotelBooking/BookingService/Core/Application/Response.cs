@@ -40,13 +40,16 @@ namespace Application
         INVALID_END = 209,
 
 
-        // Payment related codes 500 - 1500
+        // Payment related codes 500 - 1499
         PAYMENT_INVALID_PAYMENT_INTENTION = 500,
         PAYMENT_PROVIDER_NOT_IMPLEMENTED = 501,
 
         // geneic error - 1500 - 1999
         UNKNOWN_ERROR = 1500,
-        
+
+        // Payment related codes 2000 - 2499
+        InvalidPaymentIntention = 2000,
+
     }
     public abstract class Response
     {

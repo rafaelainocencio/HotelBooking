@@ -4,6 +4,7 @@ using Application.Booking.DTOs;
 using Application.Booking.Ports;
 using Application.Booking.Requests;
 using Application.Payment.Dtos;
+using Application.Queries;
 using Domain.Booking.Entities;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
@@ -83,6 +84,22 @@ namespace API.Controllers
 
             _logger.LogError("Response with unknown Returned", res);
             return BadRequest(500);
+        }
+
+        [HttpGet]
+        public async Task<ActionResult<BookingDto>> Get(int id)
+        {
+            var query = new GetBookingQuery
+            {
+                Id = id
+            };
+
+            var res = await _mediator.Send(query);
+
+            if (res.Success) return Created("", res.Data);
+
+            _logger.LogError("Could not process the request", res);
+            return BadRequest(res);
         }
     }
 }

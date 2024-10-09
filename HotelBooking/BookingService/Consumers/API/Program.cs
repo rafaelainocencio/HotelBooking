@@ -22,7 +22,8 @@ using System.Text.Json.Serialization;
 var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllers();
 
-builder.Services.AddMediatR(cfg => cfg.RegisterServicesFromAssemblies(Assembly.GetExecutingAssembly()));
+//builder.Services.AddMediatR(cfg => cfg.RegisterServicesFromAssemblies(Assembly.GetExecutingAssembly()));
+builder.Services.AddMediatR(typeof(BookingManager));
 #region IoC
 // guest
 builder.Services.AddScoped<IGuestManager, GuestManager>();

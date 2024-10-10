@@ -43,14 +43,12 @@ namespace API.Controllers
         [HttpPost]
         public async Task<ActionResult<BookingDto>> Post(BookingDto booking)
         {
-            var request = new CreateBookingRequest
-            {
-                Data = booking
-            };
-
             var command = new CreateBookCommand
             {
-                Booking = request
+                Booking = new CreateBookingRequest
+                {
+                    Data = booking
+                }
             };
 
             var res = await _mediator.Send(command);

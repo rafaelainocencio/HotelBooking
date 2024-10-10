@@ -3,6 +3,7 @@ using DomainEntities = Domain;
 using Domain.Guest.Exceptions;
 using Domain.Guest.Entities;
 using Domain.Room.ValueObjects;
+using Domain.Room.Exceptions;
 
 namespace Domain.Room.Entities
 {
@@ -81,6 +82,11 @@ namespace Domain.Room.Entities
             if (string.IsNullOrEmpty(this.Name))
             {
                 throw new InvalidRoomDataException();
+            }
+
+            if (this.HasGuest)
+            {
+                throw new RoomNotAvailableException();
             }
 
             if (this.Price == null || this.Price.Value < 10)

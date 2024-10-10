@@ -51,7 +51,6 @@ namespace Domain.Booking.Entities
 
             }
         }
-
         private void ValidadeState()
         {
             if (PlacedAt == default)

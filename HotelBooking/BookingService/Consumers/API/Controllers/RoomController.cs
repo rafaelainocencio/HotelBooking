@@ -30,17 +30,19 @@ namespace API.Controllers
         [HttpPost]
         public async Task<ActionResult<RoomDto>> Post(RoomDto room)
         {
-            /*var request = new CreateRoomCommand
+            var request = new CreateRoomCommand
             {
-                RoomDto = room
-            };*/
-
-            var request = new CreateRoomRequest
-            {
-                Data = room
+                RoomDto = new RoomDto
+                {
+                    Name = room.Name,
+                    Price = room.Price,
+                    Currency = room.Currency,
+                    Level = room.Level,
+                    InMaintenance = room.InMaintenance
+                }
             };
 
-            var res = await _roomManager.CreateRoom(request); //await _mediator.Send(request);
+            var res = await _mediator.Send(request);
 
             if (res.Success) return Created("", res.Data);
 
@@ -65,9 +67,7 @@ namespace API.Controllers
                 Id = roomId
             };
 
-            //var res = await _mediator.Send(query);
-
-            var res = await _roomManager.GetRoom(roomId);
+            var res = await _mediator.Send(query);
 
             if (res.Success) return Ok(res.Data);
 

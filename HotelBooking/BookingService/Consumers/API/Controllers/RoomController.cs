@@ -67,9 +67,7 @@ namespace API.Controllers
                 Id = roomId
             };
 
-            //var res = await _mediator.Send(query);
-
-            var res = await _roomManager.GetRoom(roomId);
+            var res = await _mediator.Send(query);
 
             if (res.Success) return Ok(res.Data);
 
